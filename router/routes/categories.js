@@ -20,4 +20,14 @@ router.get('/', function(req, res) {
   })
 });
 
+router.post('/', function(req, res) {
+  var categories = getCategories();
+  var newCategories = req.body.categories || categories;
+  console.log(newCategories);
+
+  client.set('categories', JSON.stringify(newCategories), function(err, obj) {
+    res.send(obj);
+  })
+});
+
 module.exports = router;
