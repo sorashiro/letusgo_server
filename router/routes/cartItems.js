@@ -4,8 +4,9 @@ var redis = require('redis');
 var client =  redis.createClient();
 
 router.get('/', function(req, res) {
-  //TODO: Need to implement.
-  res.send('Success!');
+  client.get('cartItems', function(err, obj) {
+    res.send(obj);
+  });
 });
 
 module.exports = router;
