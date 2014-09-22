@@ -12,9 +12,12 @@ function getCategories () {
   return categories;
 }
 
+client.set('categories', JSON.stringify(getCategories()));
+
 router.get('/', function(req, res) {
-  //TODO: Need to implement.
-  res.send('Success!');
+  client.get('categories', function(err, obj) {
+    res.send(obj);
+  })
 });
 
 module.exports = router;
