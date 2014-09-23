@@ -11,10 +11,13 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   var cartItems = req.body.cartItems || [];
-  console.log(cartItems);
-  client.set('cartItems', function(err, obj) {
+  client.set('cartItems', JSON.stringify(cartItems), function(err, obj) {
     res.send(obj);
   })
+});
+
+router.delete('/', function(req, res) {
+  client.del('cartItems');
 });
 
 module.exports = router;
