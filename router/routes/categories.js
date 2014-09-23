@@ -31,4 +31,13 @@ router.post('/', function(req, res) {
   })
 });
 
+router.delete('/:id', function(req, res) {
+  client.get('categories', function(err, obj) {
+    var id = JSON.parse(req.param('id'));
+    var categories = JSON.parse(obj);
+    var b = _.remove(categories, {'id': id});
+    client.set('categories', JSON.stringify(categories));
+  });
+});
+
 module.exports = router;
