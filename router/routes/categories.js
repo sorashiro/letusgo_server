@@ -45,7 +45,7 @@ router.delete('/:id', function(req, res) {
 router.put('/:id', function(req, res) {
 
   client.get('categories', function(err, obj) {
-    var category = JSON.parse(req.param('category');
+    var category = JSON.parse(req.param('category'));
     var id = JSON.parse(req.params.id);
     var categories = Json.parse(obj);
     var index = _.findIndex(categories, {id: id});
