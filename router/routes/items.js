@@ -33,7 +33,18 @@ router.get('/', function(req, res) {
   });
 });
 
+router.delete('/:id', function(req, res) {
 
+  client.get('items', function(err, obj) {
+    var id = JSON.parse(req.param('id'));
+    var items = JSON.parse(obj);
+    var removeItem = _.remove(items, {'id': id});
+
+    client.set('items', JSON.stringify(items), function(err, obj) {
+      res.send(obj);
+    })
+  })
+});
 
 module.exports = router;
 
