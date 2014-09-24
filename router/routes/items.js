@@ -35,12 +35,21 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
   client.get('items', function(err, obj) {
-    var id = JSON.parse(req.param('id'));
+    var id = req.param('id');
     console.log(id);
     console.log(obj);
-    var item = _.where(JSON.parse(obj), {id: id});
+    var item = _.where(JSON.parse(obj), {id: parseInt(id)});
     console.log(item);
     res.send(item);
+  })
+});
+
+router.post('/', function(req, res) {
+  var items = getItems();
+  var newItems = req.body.items || items;
+
+  client.set('items', JSON.stringify(newItems), function(err, obj) {
+    res.send(obj);
   })
 });
 
