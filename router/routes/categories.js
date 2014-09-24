@@ -24,7 +24,6 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   var categories = getCategories();
   var newCategories = req.body.categories || categories;
-  console.log(newCategories);
 
   client.set('categories', JSON.stringify(newCategories), function(err, obj) {
     res.send(obj);
@@ -45,9 +44,9 @@ router.delete('/:id', function(req, res) {
 router.put('/:id', function(req, res) {
 
   client.get('categories', function(err, obj) {
-    var category = JSON.parse(req.param('category'));
-    var id = JSON.parse(req.params.id);
-    var categories = Json.parse(obj);
+    var category = req.param('category');
+    var id = category.id;
+    var categories = JSON.parse(obj);
     var index = _.findIndex(categories, {id: id});
     categories[index] = category;
 
