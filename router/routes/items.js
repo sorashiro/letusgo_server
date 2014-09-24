@@ -33,6 +33,17 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/:id', function(req, res) {
+  client.get('items', function(err, obj) {
+    var id = JSON.parse(req.param('id'));
+    console.log(id);
+    console.log(obj);
+    var item = _.where(JSON.parse(obj), {id: id});
+    console.log(item);
+    res.send(item);
+  })
+});
+
 router.delete('/:id', function(req, res) {
 
   client.get('items', function(err, obj) {
