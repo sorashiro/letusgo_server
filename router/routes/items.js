@@ -57,5 +57,20 @@ router.delete('/:id', function(req, res) {
   })
 });
 
+router.put('/:id', function(req, res) {
+
+  client.get('items', function(err, obj) {
+    var item = JSON.parse(req.param('item'));
+    var items = JSON.parse(obj);
+    var id = item.id;
+    var index = _.findIndex(items, {id: id});
+    items[index] = item;
+
+    client.set('items', JSON.stringify(items), function(err, obj) {
+      res.send(obj);
+    })
+  })
+});
+
 module.exports = router;
 
