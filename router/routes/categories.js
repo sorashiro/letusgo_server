@@ -36,8 +36,25 @@ router.delete('/:id', function(req, res) {
     var id = JSON.parse(req.param('id'));
     var categories = JSON.parse(obj);
     var b = _.remove(categories, {'id': id});
-    client.set('categories', JSON.stringify(categories));
+    client.set('categories', JSON.stringify(categories), function(err, obj) {
+      res.send(obj);
+    });
   });
+});
+
+router.put('/:id', function(req, res) {
+
+  client.get('categories', function(err, obj) {
+    var category = JSON.parse(req.param('category');
+    var id = JSON.parse(req.params.id);
+    var categories = Json.parse(obj);
+    var index = _.findIndex(categories, {id: id});
+    categories[index] = category;
+
+    client.set('categories', JSON.stringify(categories), function(err, obj) {
+      res.send(obj);
+    })
+  })
 });
 
 module.exports = router;
