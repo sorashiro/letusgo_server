@@ -50,4 +50,18 @@ router.post('/reduce', function(req, res) {
   });
 });
 
+router.post('/plus', function(req, res) {
+  client.get('cartItems', function (err, obj) {
+    var cartItems = JSON.parse(obj);
+    var id = req.param('id');
+    var items = _.pluck(cartItems, 'item');
+    var index = _.findIndex(items, {'id': parseInt(id)});
+    cartItems[index].num++;
+
+    client.set('cartItems', JSON.stringify(cartItems), function (err, obj) {
+      res.send(obj);
+    });
+  });
+});
+
 module.exports = router;
