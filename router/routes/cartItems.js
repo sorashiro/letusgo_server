@@ -14,11 +14,19 @@ router.post('/', function(req, res) {
   var cartItems = req.body.cartItems || [];
   client.set('cartItems', JSON.stringify(cartItems), function(err, obj) {
     res.send(obj);
-  })
+  });
 });
 
-router.delete('/', function(req, res) {
-  client.del('cartItems');
+router.post('/payment', function(req, res) {
+  var cartItems = req.param('cartItems');
+  var result = cartItems.length;
+  if(result){
+    client.del('cartItems');
+    res.json(result);
+  }
+  else {
+    res.sendStatus(404);
+  }
 });
 
 module.exports = router;
