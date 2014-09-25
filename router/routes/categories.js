@@ -18,7 +18,7 @@ client.set('categories', JSON.stringify(getCategories()));
 router.get('/', function(req, res) {
   client.get('categories', function(err, obj) {
     res.send(obj);
-  })
+  });
 });
 
 router.post('/', function(req, res) {
@@ -27,7 +27,7 @@ router.post('/', function(req, res) {
 
   client.set('categories', JSON.stringify(newCategories), function(err, obj) {
     res.send(obj);
-  })
+  });
 });
 
 router.delete('/:id', function(req, res) {
@@ -52,8 +52,8 @@ router.put('/:id', function(req, res) {
 
     client.set('categories', JSON.stringify(categories), function(err, obj) {
       res.send(obj);
-    })
-  })
+    });
+  });
 });
 
 module.exports = router;

@@ -41,7 +41,7 @@ router.get('/:id', function(req, res) {
     var item = _.where(JSON.parse(obj), {id: parseInt(id)});
     console.log(item);
     res.send(item);
-  })
+  });
 });
 
 router.post('/', function(req, res) {
@@ -50,7 +50,7 @@ router.post('/', function(req, res) {
 
   client.set('items', JSON.stringify(newItems), function(err, obj) {
     res.send(obj);
-  })
+  });
 });
 
 router.delete('/:id', function(req, res) {
@@ -62,8 +62,8 @@ router.delete('/:id', function(req, res) {
 
     client.set('items', JSON.stringify(items), function(err, obj) {
       res.send(obj);
-    })
-  })
+    });
+  });
 });
 
 router.put('/:id', function(req, res) {
@@ -77,8 +77,8 @@ router.put('/:id', function(req, res) {
 
     client.set('items', JSON.stringify(items), function(err, obj) {
       res.send(obj);
-    })
-  })
+    });
+  });
 });
 
 module.exports = router;
