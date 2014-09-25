@@ -41,6 +41,9 @@ router.put('/:id', function(req, res) {
     var index = _.findIndex(items, {'id': parseInt(id)});
     cartItems[index].num--;
 
+    if(cartItems[index].num === 0) {
+      _.remove(cartItems, {num: 0});
+    }
     client.set('cartItems', JSON.stringify(cartItems), function(err, obj) {
       res.send(obj);
     });
