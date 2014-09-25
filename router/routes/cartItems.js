@@ -29,4 +29,22 @@ router.post('/payment', function(req, res) {
   }
 });
 
+router.put('/:id', function(req, res) {
+  client.get('cartItems', function(err, obj) {
+    var cartItems = JSON.parse(obj);
+    var id = req.params.id;
+    var items = [];
+
+    _.forEach(cartItems, function(cartItem, index) {
+      items.push(cartItem.item);
+    });
+    var index = _.findIndex(items, {'id': parseInt(id)});
+    cartItems[index].num--;
+
+    client.set('cartItems', JSON.stringify(cartItems), function(err, obj) {
+      res.send(obj);
+    });
+  });
+});
+
 module.exports = router;
