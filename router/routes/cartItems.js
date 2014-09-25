@@ -29,13 +29,13 @@ router.post('/payment', function(req, res) {
   }
 });
 
-router.put('/:id', function(req, res) {
+router.post('/reduce', function(req, res) {
   client.get('cartItems', function(err, obj) {
     var cartItems = JSON.parse(obj);
-    var id = req.params.id;
+    var id = req.param('id');
     var items = [];
 
-    _.forEach(cartItems, function(cartItem, index) {
+    _.forEach(cartItems, function(cartItem) {
       items.push(cartItem.item);
     });
     var index = _.findIndex(items, {'id': parseInt(id)});
