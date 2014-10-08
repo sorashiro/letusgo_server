@@ -22,11 +22,14 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var categories = getCategories();
-  var newCategories = req.body.categories || categories;
+  client.get('categories', function(err, obj) {
+    var categories = JSON.parse(obj);
+    var newCategories = req.param('category');
+    categories.push(newCategories);
 
-  client.set('categories', JSON.stringify(newCategories), function(err, obj) {
-    res.send(obj);
+    client.set('categories', JSON.stringify(categories), function(err, obj) {
+      res.send(obj);
+    });
   });
 });
 
