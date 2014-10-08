@@ -42,12 +42,15 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var items = getItems();
-  var newItems = req.param('item');
-  items.push(newItems);
 
-  client.set('items', JSON.stringify(items), function(err, obj) {
-    res.send(obj);
+  client.get('items', function(err, obj) {
+    var items = JSON.parse(obj);
+    var newItems = req.param('item');
+    items.push(newItems);
+
+    client.set('items', JSON.stringify(items), function (err, obj) {
+      res.send(obj);
+    });
   });
 });
 
